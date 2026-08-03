@@ -383,12 +383,33 @@ img{max-width:100%;height:auto;display:block}
 .founder .sign{font-size:.9rem;font-weight:600;color:var(--muted-2)}
 
 footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-area-inset-bottom))}
-.foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:1.25rem;flex-wrap:wrap;align-items:flex-end;font-size:.85rem;color:var(--muted)}
 .foot-brand{display:flex;align-items:center;gap:.5rem;font-weight:700;color:var(--ink)}
 .foot-brand img{height:34px}
 .foot-product{font-size:.8rem;font-weight:500;color:var(--muted);margin-top:.45rem}
 .foot-product strong{color:var(--platinum);font-weight:600}
 .foot b{color:var(--primary)}
+.foot-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.65rem;text-align:right}
+.foot-stats{
+  display:flex;gap:.55rem;flex-wrap:wrap;justify-content:flex-end;
+}
+.stat-pill{
+  display:flex;flex-direction:column;gap:.15rem;align-items:flex-start;
+  min-width:7.5rem;
+  padding:.55rem .75rem;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.stat-pill .label{font-size:.65rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.stat-pill .value{font-size:1.05rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat-pill .value .unit{font-size:.72rem;font-weight:500;color:var(--muted);margin-left:.2rem}
+@media(max-width:560px){
+  .foot-meta{align-items:flex-start;text-align:left;width:100%}
+  .foot-stats{justify-content:flex-start}
+}
 
 /* Motion.page-style scroll reveal */
 .m-reveal{
@@ -605,7 +626,19 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-a
 </div>
 <div class="foot-product">Laksh is a product of <strong>Siddhanath Edulabs</strong></div>
 </div>
-<div>Made for Class 11 &amp; 12 Science Students · <b>NEET</b> · <b>JEE</b> · <b>CET</b></div>
+<div class="foot-meta">
+  <div class="foot-stats" aria-label="Website visitors">
+    <div class="stat-pill">
+      <span class="label">Today</span>
+      <span class="value" id="visitorsToday">—<span class="unit">visitors</span></span>
+    </div>
+    <div class="stat-pill">
+      <span class="label">Total</span>
+      <span class="value" id="visitorsTotal">—<span class="unit">visitors</span></span>
+    </div>
+  </div>
+  <div>Made for Class 11 &amp; 12 Science Students · <b>NEET</b> · <b>JEE</b> · <b>CET</b></div>
+</div>
 </div></footer></div>
 <script>
 (function(){
@@ -672,5 +705,43 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-a
     });
   },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
   els.forEach(el=>io.observe(el));
+
+  // Visitor counters (Today + Total) via Abacus — counts once per browser / day
+  (async function visitorStats(){
+    const todayEl = document.getElementById('visitorsToday');
+    const totalEl = document.getElementById('visitorsTotal');
+    if (!todayEl || !totalEl) return;
+
+    const ns = 'lakshnotebooks';
+    const fmt = (n) => (typeof n === 'number' ? n.toLocaleString('en-IN') : '—');
+    const setVal = (el, n) => {
+      el.innerHTML = fmt(n) + '<span class="unit">visitors</span>';
+    };
+
+    // IST date key YYYY-MM-DD
+    const dayKey = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit'
+    }).format(new Date());
+    const seenKey = 'laksh_visit_' + dayKey;
+    const base = 'https://abacus.jasoncameron.dev';
+
+    try {
+      const already = localStorage.getItem(seenKey) === '1';
+      const totalPath = already ? ('/get/' + ns + '/total') : ('/hit/' + ns + '/total');
+      const todayPath = already ? ('/get/' + ns + '/day-' + dayKey) : ('/hit/' + ns + '/day-' + dayKey);
+
+      const [totalRes, todayRes] = await Promise.all([
+        fetch(base + totalPath).then(r => r.json()),
+        fetch(base + todayPath).then(r => r.json())
+      ]);
+
+      if (!already) localStorage.setItem(seenKey, '1');
+      setVal(totalEl, totalRes && totalRes.value);
+      setVal(todayEl, todayRes && todayRes.value);
+    } catch (e) {
+      setVal(totalEl, null);
+      setVal(todayEl, null);
+    }
+  })();
 })();
 </script></body></html>
