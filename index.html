@@ -9,8 +9,8 @@
 <meta name="author" content="Siddhanath Edulabs">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://www.lakshnotebooks.in/">
-<link rel="icon" href="logo.png" type="image/png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Laksh Notebooks">
 <meta property="og:locale" content="en_IN">
@@ -25,7 +25,8 @@
 <meta name="twitter:image" content="https://www.lakshnotebooks.in/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <style>
 :root{
   /* Deepgram-inspired palette — https://deepgram.com */
@@ -64,7 +65,7 @@ h1,h2,h3,.brand-name{
 p,span,a,li,h1,h2,h3,strong{overflow-wrap:break-word;word-break:normal;hyphens:none;text-wrap:pretty}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;height:auto;display:block}
-.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.mono{font-family:ui-monospace,'JetBrains Mono',monospace}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 .page{
@@ -182,7 +183,7 @@ img{max-width:100%;height:auto;display:block}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(1.5rem,4vw,2.75rem);align-items:center}
 .eyebrow{
   display:inline-flex;align-items:center;gap:.45rem;
-  font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:500;
+  font-family:ui-monospace,'JetBrains Mono',monospace;font-size:.7rem;font-weight:500;
   letter-spacing:.08em;text-transform:uppercase;color:var(--primary);
   border:1px solid rgba(19,239,149,.35);background:rgba(19,239,149,.08);
   padding:.4rem .75rem;border-radius:999px;margin-bottom:1.1rem;
@@ -249,7 +250,7 @@ img{max-width:100%;height:auto;display:block}
 .anim-tagline .type-line{
   display:inline-flex;align-items:center;gap:2px;
   width:100%;margin-top:4px;
-  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-family:ui-monospace,'JetBrains Mono',monospace;
   font-size:clamp(.85rem,1.4vw,1.05rem);
   font-weight:600;letter-spacing:.06em;
   min-height:1.4em;
@@ -328,7 +329,7 @@ img{max-width:100%;height:auto;display:block}
   padding:1.1rem 1rem;height:100%;
 }
 .journey-card .tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;color:var(--primary)}
-.journey-card .formula{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--secondary);line-height:1.45}
+.journey-card .formula{font-family:ui-monospace,'JetBrains Mono',monospace;font-size:.78rem;color:var(--secondary);line-height:1.45}
 
 /* Story + mission compact restore */
 .story-block{padding:1.5rem 0 2rem}
@@ -385,7 +386,7 @@ img{max-width:100%;height:auto;display:block}
 footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-area-inset-bottom))}
 .foot{display:flex;justify-content:space-between;gap:1.25rem;flex-wrap:wrap;align-items:flex-end;font-size:.85rem;color:var(--muted)}
 .foot-brand{display:flex;align-items:center;gap:.5rem;font-weight:700;color:var(--ink)}
-.foot-brand img{height:34px}
+.foot-brand img{height:34px;width:34px}
 .foot-product{font-size:.8rem;font-weight:500;color:var(--muted);margin-top:.45rem}
 .foot-product strong{color:var(--platinum);font-weight:600}
 .foot b{color:var(--primary)}
@@ -515,7 +516,12 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-a
 <div class="page">
 <header class="header"><div class="nav">
 <a class="brand" href="#">
-<span class="brand-mark"><img src="logo.png" alt="Laksh Notebooks logo"></span>
+<span class="brand-mark">
+  <picture>
+    <source type="image/webp" srcset="logo-128.webp">
+    <img src="logo-144.png" width="64" height="64" alt="Laksh Notebooks logo" decoding="async">
+  </picture>
+</span>
 <div class="brand-copy">
   <div class="brand-name">Laksh</div>
   <div class="brand-tagline">Notebooks for aspirants · Learn · Grow · Aspire</div>
@@ -621,7 +627,10 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 max(1.25rem,env(safe-a
 </div></section>
 <footer><div class="wrap foot"><div>
 <div class="foot-brand">
-<img src="logo.png" alt="Laksh Notebooks">
+<picture>
+  <source type="image/webp" srcset="logo-128.webp">
+  <img src="logo-144.png" width="34" height="34" alt="Laksh Notebooks" decoding="async" loading="lazy">
+</picture>
 <span>Laksh</span>
 </div>
 <div class="foot-product">Laksh is a product of <strong>Siddhanath Edulabs</strong></div>
