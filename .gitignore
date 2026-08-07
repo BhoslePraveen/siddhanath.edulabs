@@ -1,0 +1,55 @@
+# Markdown
+*.md
+
+# Dependencies / tooling
+node_modules/
+package.json
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Local / temp / analysis
+*.log
+*.tmp
+*.temp
+psi-*.json
+.cache/
+dist/
+build/
+coverage/
+
+# Design / source work (not for deploy)
+design-system/
+
+# AI / agent / IDE skill folders
+.agents/
+.augment/
+.claude/
+.codebuddy/
+.codewhale/
+.continue/
+.cursor/
+.factory/
+.gemini/
+.github/
+.kilocode/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.warp/
+.windsurf/
